@@ -203,7 +203,7 @@ export default function VibeMapLandingPage() {
       <section id="features" className="py-20 border-t border-slate-200/60 bg-white">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight">Why VibeMap?</h2>
-          <p className="mt-2 text-slate-600 max-w-prose">Unified discovery, less friction, more plans. Built from 20+ student interviews and validated demand (17/20 early adopters).</p>
+          <p className="mt-2 text-slate-600 max-w-prose">Unified discovery, less friction, more plans. Built from 20+ student interviews and validated demand.</p>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((f, i) => (
