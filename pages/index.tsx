@@ -85,7 +85,7 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 function Tier({ t }: { t: any }) {
   return (
-    <Card className={`relative rounded-2xl ${t.featured ? "ring-2 ring-indigo-500" : ""}` }>
+    <Card className={`relative rounded-2xl border-2 ${t.featured ? "ring-2 ring-pink-500 border-pink-300 bg-gradient-to-br from-white to-pink-50" : "border-purple-200/50"}` }>
       <CardHeader>
         <CardTitle className="flex items-baseline justify-between">
           <span>{t.name}</span>
@@ -101,7 +101,7 @@ function Tier({ t }: { t: any }) {
             </li>
           ))}
         </ul>
-        <Button className="w-full group" variant={t.featured ? "default" : "secondary"}>
+        <Button className={`w-full group ${t.featured ? "bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700" : ""}`} variant={t.featured ? "default" : "secondary"}>
           {t.cta}
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Button>
@@ -122,21 +122,21 @@ export default function VibeMapLandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-blue-50 text-slate-900">
       {/* NAVBAR */}
-      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b border-slate-200/60">
+      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-purple-200/40 bg-gradient-to-r from-white/90 to-purple-50/90">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="h-9 w-9 rounded-2xl bg-indigo-600 text-white grid place-items-center font-semibold">
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="h-9 w-9 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 text-white grid place-items-center font-semibold">
               VM
             </motion.div>
             <span className="font-semibold">VibeMap</span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
-            <a href="#features" className="hover:text-slate-900">Features</a>
-            <a href="#how" className="hover:text-slate-900">How it works</a>
-            <a href="#pricing" className="hover:text-slate-900">Pricing</a>
-            <a href="#faq" className="hover:text-slate-900">FAQ</a>
+            <a href="#features" className="hover:text-purple-600 transition-colors">Features</a>
+            <a href="#how" className="hover:text-pink-600 transition-colors">How it works</a>
+            <a href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
+            <a href="#faq" className="hover:text-purple-600 transition-colors">FAQ</a>
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="ghost" className="hidden sm:inline-flex">Sign in</Button>
@@ -155,7 +155,7 @@ export default function VibeMapLandingPage() {
               transition={{ duration: 0.5 }}
               className="text-4xl/tight font-extrabold tracking-tight md:text-5xl"
             >
-              Find your next plan in <span className="text-indigo-600">60 seconds</span>
+              Find your next plan in <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">60 seconds</span>
             </motion.h1>
             <p className="mt-4 text-slate-600 max-w-prose">
               VibeMap brings together local events, hidden spots, and campus happenings—personalized to your interests, on a clean map that cuts the scroll.
@@ -164,7 +164,7 @@ export default function VibeMapLandingPage() {
             <ul className="mt-6 space-y-3">
               {valueProps.map((vp, i) => (
                 <li key={i} className="flex items-center gap-3 text-sm">
-                  <div className="h-8 w-8 rounded-xl bg-indigo-50 text-indigo-700 grid place-items-center">{vp.icon}</div>
+                  <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 text-purple-700 grid place-items-center">{vp.icon}</div>
                   <span>{vp.text}</span>
                 </li>
               ))}
@@ -180,7 +180,7 @@ export default function VibeMapLandingPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 rounded-xl border border-slate-300 px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
-              <Button type="submit" className="rounded-xl px-5">Join waitlist</Button>
+              <Button type="submit" className="rounded-xl px-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">Join waitlist</Button>
             </form>
             {submitted && (
               <p className="mt-2 text-sm text-emerald-600">Thanks! We'll be in touch with beta invites soon.</p>
@@ -200,48 +200,54 @@ export default function VibeMapLandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="py-20 border-t border-slate-200/60 bg-white">
+      <section id="features" className="py-20 border-t border-purple-200/40 bg-gradient-to-b from-white via-purple-50/30 to-white">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight">Why VibeMap?</h2>
           <p className="mt-2 text-slate-600 max-w-prose">Unified discovery, less friction, more plans. Built from 20+ student interviews and validated demand.</p>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((f, i) => (
-              <Card key={i} className="rounded-2xl">
-                <CardHeader className="space-y-1">
-                  <div className="h-10 w-10 rounded-xl bg-indigo-50 text-indigo-700 grid place-items-center">{f.icon}</div>
-                  <CardTitle className="text-xl">{f.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-slate-600">{f.desc}</CardContent>
-              </Card>
-            ))}
+            {features.map((f, i) => {
+              const colors = ['from-purple-100 to-pink-100 text-purple-700', 'from-pink-100 to-red-100 text-pink-700', 'from-blue-100 to-purple-100 text-blue-700', 'from-yellow-100 to-orange-100 text-yellow-700', 'from-green-100 to-blue-100 text-green-700', 'from-red-100 to-pink-100 text-red-700'];
+              return (
+                <Card key={i} className="rounded-2xl border-2 border-purple-100/50 hover:border-purple-300/50 transition-colors">
+                  <CardHeader className="space-y-1">
+                    <div className={`h-10 w-10 rounded-xl bg-gradient-to-br ${colors[i]} grid place-items-center`}>{f.icon}</div>
+                    <CardTitle className="text-xl">{f.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-sm text-slate-600">{f.desc}</CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how" className="py-20">
+      <section id="how" className="py-20 bg-gradient-to-b from-blue-50/50 to-purple-50/50">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight">How it works</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {["Tell us your interests", "Browse the live map", "Plan with friends"].map((step, i) => (
-              <Card key={i} className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-3"><span className="h-8 w-8 rounded-full bg-indigo-600 text-white grid place-items-center text-sm">{i + 1}</span>{step}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-slate-600">
-                  {i === 0 && "Pick vibes, budgets, and interests. VibeMap tunes recommendations instantly."}
-                  {i === 1 && "See everything on one clean map with filters for time, distance, and price."}
-                  {i === 2 && "Tag friends, share plans, and get alerts when something's trending nearby."}
-                </CardContent>
-              </Card>
-            ))}
+            {["Tell us your interests", "Browse the live map", "Plan with friends"].map((step, i) => {
+              const stepColors = ['from-purple-600 to-pink-600', 'from-pink-600 to-red-600', 'from-blue-600 to-purple-600'];
+              return (
+                <Card key={i} className="rounded-2xl border-2 border-blue-100/50">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3"><span className={`h-8 w-8 rounded-full bg-gradient-to-r ${stepColors[i]} text-white grid place-items-center text-sm`}>{i + 1}</span>{step}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-sm text-slate-600">
+                    {i === 0 && "Pick vibes, budgets, and interests. VibeMap tunes recommendations instantly."}
+                    {i === 1 && "See everything on one clean map with filters for time, distance, and price."}
+                    {i === 2 && "Tag friends, share plans, and get alerts when something's trending nearby."}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="py-20 bg-slate-50 border-y border-slate-200/60">
+      <section id="pricing" className="py-20 bg-gradient-to-b from-purple-50 to-pink-50 border-y border-purple-200/40">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight">Simple pricing</h2>
           <p className="mt-2 text-slate-600">Start free. Upgrade anytime for exclusive drops and advanced filters.</p>
@@ -252,7 +258,7 @@ export default function VibeMapLandingPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-b from-white to-blue-50/50">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight">Students are finding their vibe</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
@@ -260,20 +266,23 @@ export default function VibeMapLandingPage() {
               { q: "I stopped doomscrolling and actually went out.", a: "Transfer student, SLO" },
               { q: "Finally an app that shows hidden things—not just ads.", a: "Junior, CS" },
               { q: "We planned a last‑minute beach volleyball game in minutes.", a: "Freshman, Business" },
-            ].map((t, i) => (
-              <Card key={i} className="rounded-2xl">
-                <CardContent className="p-6">
-                  <p className="text-slate-800">"{t.q}"</p>
-                  <p className="mt-3 text-sm text-slate-500">— {t.a}</p>
-                </CardContent>
-              </Card>
-            ))}
+            ].map((t, i) => {
+              const testimonialColors = ['border-purple-200/50', 'border-pink-200/50', 'border-blue-200/50'];
+              return (
+                <Card key={i} className={`rounded-2xl border-2 ${testimonialColors[i]} bg-gradient-to-br ${i === 0 ? 'from-purple-50 to-white' : i === 1 ? 'from-pink-50 to-white' : 'from-blue-50 to-white'}`}>
+                  <CardContent className="p-6">
+                    <p className="text-slate-800">"{t.q}"</p>
+                    <p className="mt-3 text-sm text-slate-500">— {t.a}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-indigo-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white">
         <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-3xl font-extrabold tracking-tight">Be first to the drop</h2>
@@ -289,25 +298,25 @@ export default function VibeMapLandingPage() {
               onChange={(e) => setEmail(e.target.value)}
               className="flex-1 rounded-xl border border-white/20 bg-white/10 px-4 py-3 placeholder:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <Button type="submit" variant="secondary" className="rounded-xl">Join waitlist</Button>
+            <Button type="submit" variant="secondary" className="rounded-xl bg-white text-purple-600 hover:bg-purple-50">Join waitlist</Button>
           </form>
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-20">
+      <section id="faq" className="py-20 bg-gradient-to-b from-white to-purple-50/30">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold tracking-tight">FAQ</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <Card className="rounded-2xl"><CardHeader><CardTitle>Where does event data come from?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">Aggregated from public sources (e.g., campus orgs, local venues, community boards) plus user submissions and partner feeds.</CardContent></Card>
-            <Card className="rounded-2xl"><CardHeader><CardTitle>Will this drain my battery?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">No—VibeMap uses adaptive location checks and local caching to be battery‑friendly.</CardContent></Card>
-            <Card className="rounded-2xl"><CardHeader><CardTitle>Is my data private?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">Yes. We keep data minimal, let you control visibility, and avoid dark‑pattern engagement.</CardContent></Card>
-            <Card className="rounded-2xl"><CardHeader><CardTitle>How do I get early access?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">Join the waitlist above—cities roll out in waves. Ambassadors get priority.</CardContent></Card>
+            <Card className="rounded-2xl border-2 border-purple-200/50 bg-gradient-to-br from-purple-50 to-white"><CardHeader><CardTitle>Where does event data come from?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">Aggregated from public sources (e.g., campus orgs, local venues, community boards) plus user submissions and partner feeds.</CardContent></Card>
+            <Card className="rounded-2xl border-2 border-pink-200/50 bg-gradient-to-br from-pink-50 to-white"><CardHeader><CardTitle>Will this drain my battery?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">No—VibeMap uses adaptive location checks and local caching to be battery‑friendly.</CardContent></Card>
+            <Card className="rounded-2xl border-2 border-blue-200/50 bg-gradient-to-br from-blue-50 to-white"><CardHeader><CardTitle>Is my data private?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">Yes. We keep data minimal, let you control visibility, and avoid dark‑pattern engagement.</CardContent></Card>
+            <Card className="rounded-2xl border-2 border-yellow-200/50 bg-gradient-to-br from-yellow-50 to-white"><CardHeader><CardTitle>How do I get early access?</CardTitle></CardHeader><CardContent className="text-sm text-slate-600">Join the waitlist above—cities roll out in waves. Ambassadors get priority.</CardContent></Card>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-slate-200/60">
+      <footer className="border-t border-purple-200/40 bg-gradient-to-b from-white to-purple-50/20">
         <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-slate-500 flex flex-col md:flex-row items-center justify-between gap-3">
           <p>© {new Date().getFullYear()} VibeMap • Made with ❤️ on campus</p>
           <div className="flex items-center gap-5">
