@@ -181,10 +181,6 @@ export default function VibeMapLandingPage() {
             <a href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
             <a href="#faq" className="hover:text-purple-600 transition-colors">FAQ</a>
           </nav>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" className="hidden sm:inline-flex">Sign in</Button>
-            <Button>Download</Button>
-          </div>
         </div>
       </header>
 
