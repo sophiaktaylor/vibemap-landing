@@ -1,9 +1,52 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { MapPin, Sparkles, Users, Compass, BellRing, Filter, ArrowRight, ShieldCheck, Smartphone, Clock, Star } from "lucide-react";
+import { MapPin, Sparkles, Users, Compass, BellRing, Filter, ArrowRight, ShieldCheck, Smartphone, Clock, Star, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+const floatingVariants = {
+  animate: {
+    y: [0, -10, 0],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const pulseVariants = {
+  animate: {
+    scale: [1, 1.05, 1],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
 
 // Dynamically import MapPreview to avoid SSR issues with Leaflet
 const MapPreview = dynamic(() => import("@/components/MapPreview").then(mod => ({ default: mod.MapPreview })), {
@@ -146,8 +189,20 @@ export default function VibeMapLandingPage() {
       </header>
 
       {/* HERO */}
-      <section className="relative">
-        <div className="mx-auto max-w-6xl px-4 py-16 lg:py-24 grid lg:grid-cols-2 gap-10 items-center">
+      <section className="relative overflow-hidden">
+        {/* Animated background elements */}
+        <motion.div 
+          className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-purple-300 to-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+          animate={{ y: [0, 30, 0], x: [0, 20, 0] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div 
+          className="absolute -bottom-8 left-10 w-72 h-72 bg-gradient-to-br from-blue-300 to-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+          animate={{ y: [0, -30, 0], x: [0, -20, 0] }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+        
+        <div className="mx-auto max-w-6xl px-4 py-16 lg:py-24 grid lg:grid-cols-2 gap-10 items-center relative z-10">
           <div>
             <motion.h1
               initial={{ opacity: 0, y: 8 }}
@@ -161,14 +216,25 @@ export default function VibeMapLandingPage() {
               VibeMap brings together local events, hidden spots, and campus happenings—personalized to your interests, on a clean map that cuts the scroll.
             </p>
 
-            <ul className="mt-6 space-y-3">
+            <motion.ul 
+              className="mt-6 space-y-3"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
               {valueProps.map((vp, i) => (
-                <li key={i} className="flex items-center gap-3 text-sm">
-                  <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 text-purple-700 grid place-items-center">{vp.icon}</div>
+                <motion.li key={i} variants={itemVariants} className="flex items-center gap-3 text-sm">
+                  <motion.div 
+                    className="h-8 w-8 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 text-purple-700 grid place-items-center"
+                    animate={floatingVariants.animate}
+                    style={{ animationDelay: `${i * 0.2}s` }}
+                  >
+                    {vp.icon}
+                  </motion.div>
                   <span>{vp.text}</span>
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
 
             <form onSubmit={onSubmit} className="mt-8 flex w-full max-w-lg gap-2">
               <input
@@ -189,12 +255,19 @@ export default function VibeMapLandingPage() {
 
           {/* Live Map Preview */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            initial={{ opacity: 0, y: 12, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
             className="relative"
+            whileHover={{ y: -5 }}
           >
-            <MapPreview />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl blur-2xl opacity-20"
+              animate={pulseVariants.animate}
+            />
+            <div className="relative z-10">
+              <MapPreview />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -205,20 +278,34 @@ export default function VibeMapLandingPage() {
           <h2 className="text-3xl font-bold tracking-tight">Why VibeMap?</h2>
           <p className="mt-2 text-slate-600 max-w-prose">Unified discovery, less friction, more plans. Built from 20+ student interviews and validated demand.</p>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div 
+            className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {features.map((f, i) => {
               const colors = ['from-purple-100 to-pink-100 text-purple-700', 'from-pink-100 to-red-100 text-pink-700', 'from-blue-100 to-purple-100 text-blue-700', 'from-yellow-100 to-orange-100 text-yellow-700', 'from-green-100 to-blue-100 text-green-700', 'from-red-100 to-pink-100 text-red-700'];
               return (
-                <Card key={i} className="rounded-2xl border-2 border-purple-100/50 hover:border-purple-300/50 transition-colors">
-                  <CardHeader className="space-y-1">
-                    <div className={`h-10 w-10 rounded-xl bg-gradient-to-br ${colors[i]} grid place-items-center`}>{f.icon}</div>
-                    <CardTitle className="text-xl">{f.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-sm text-slate-600">{f.desc}</CardContent>
-                </Card>
+                <motion.div key={i} variants={itemVariants} whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}>
+                  <Card className="rounded-2xl border-2 border-purple-100/50 hover:border-purple-300/50 transition-all h-full cursor-pointer">
+                    <CardHeader className="space-y-1">
+                      <motion.div 
+                        className={`h-10 w-10 rounded-xl bg-gradient-to-br ${colors[i]} grid place-items-center`}
+                        animate={{ rotate: [0, 5, -5, 0] }}
+                        transition={{ duration: 4, repeat: Infinity }}
+                      >
+                        {f.icon}
+                      </motion.div>
+                      <CardTitle className="text-xl">{f.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-sm text-slate-600">{f.desc}</CardContent>
+                  </Card>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
