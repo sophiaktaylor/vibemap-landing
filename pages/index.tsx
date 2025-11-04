@@ -170,9 +170,27 @@ export default function VibeMapLandingPage() {
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-purple-200/40 bg-gradient-to-r from-white/90 to-purple-50/90">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="h-9 w-9 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 text-white grid place-items-center font-semibold">
-              VM
-            </motion.div>
+            <motion.svg 
+              initial={{ opacity: 0, scale: 0.9 }} 
+              animate={{ opacity: 1, scale: 1 }}
+              width="24" 
+              height="32" 
+              viewBox="0 0 24 32" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className="drop-shadow-lg"
+            >
+              <defs>
+                <linearGradient id="pinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#9333ea" />
+                  <stop offset="100%" stopColor="#ec4899" />
+                </linearGradient>
+              </defs>
+              <path 
+                d="M12 0C5.4 0 0 5.4 0 12c0 8 12 20 12 20s12-12 12-20c0-6.6-5.4-12-12-12zm0 16c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z" 
+                fill="url(#pinGradient)"
+              />
+            </motion.svg>
             <span className="font-semibold">VibeMap</span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
