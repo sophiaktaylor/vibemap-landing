@@ -157,11 +157,27 @@ export default function VibeMapLandingPage() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Integrate with your provider (e.g., Supabase, Mailchimp) here.
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setEmail("");
+        setTimeout(() => setSubmitted(false), 3000);
+      } else {
+        console.error('Signup failed');
+      }
+    } catch (error) {
+      console.error('Error submitting email:', error);
+    }
   };
 
   return (
